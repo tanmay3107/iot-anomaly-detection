@@ -16,5 +16,5 @@ This project implements a real-time data pipeline to detect anomalies in IoT sen
 ## Setup
 1. Clone the repository.
 2. Start the infrastructure:
-   ```bash
+
    docker-compose up -d
