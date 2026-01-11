@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "sensor_id": { "type": "integer" },
+    "timestamp": { "type": "number" },
+    "temperature": { "type": "number" },
+    "vibration": { "type": "number" }
+  },
+  "required": ["sensor_id", "timestamp", "temperature", "vibration"],
+  "additionalProperties": false
+}
