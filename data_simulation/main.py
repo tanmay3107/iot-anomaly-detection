@@ -3,6 +3,7 @@ import random
 from . import config
 from .sensor import generate_sensor_data
 from .producer import create_producer
+from utils.validation import validate_data  # <--- NEW IMPORT
 
 def main():
     producer = create_producer()
@@ -13,19 +14,17 @@ def main():
     
     try:
         while True:
-            # Pick a random sensor from our list
             sensor_id = random.choice(config.SENSOR_ID_LIST)
-            
-            # Generate data
             data = generate_sensor_data(sensor_id)
             
-            # Send to Kafka
-            producer.send(config.TOPIC_NAME, data)
+            # --- NEW: VALIDATION BLOCK ---
+            if validate_data(data):
+                producer.send(config.TOPIC_NAME, data)
+                print(f"Sent: {data}")
+            else:
+                print(f"Skipping invalid data: {data}")
+            # -----------------------------
             
-            # Print for debugging
-            print(f"Sent: {data}")
-            
-            # Wait
             time.sleep(config.FREQUENCY)
             
     except KeyboardInterrupt:
